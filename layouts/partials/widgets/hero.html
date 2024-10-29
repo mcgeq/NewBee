@@ -81,8 +81,9 @@
             <div class="hero-title">{{ .Title }}</div>
             <div class="hero-subtitle">{{ .Params.subtitle }}</div>
             <div class="hero-date">
-                    <span class="no-wrap"><i class="fa fa-calendar"></i> {{ i18n "postInfo_postedOn" }}: {{ .PublishDate.Format "2006-1-2" }} &nbsp;</span>
-                    <span class="no-wrap"><i class="fa fa-calendar-check-o"></i> {{ i18n "postInfo_updatedOn" }}: {{ .Lastmod.Format "2006-1-2" }} &nbsp;</span>
+                {{ $dateFormat := .Site.Params.publishDateFormat | default "2006-01-02 15:04:05" }}
+                    <span class="no-wrap"><i class="fa fa-calendar"></i> {{ i18n "postInfo_postedOn" }}: {{ .PublishDate.Format $dateFormat }} &nbsp;</span>
+                    <span class="no-wrap"><i class="fa fa-calendar-check-o"></i> {{ i18n "postInfo_updatedOn" }}: {{ .Lastmod.Format $dateFormat }} &nbsp;</span>
                     <span class="no-wrap"><i class="fa fa-folder"></i>
                         {{ with .Params.categories }}{{ i18n "postInfo_includedIn" }}:{{ else }}{{ i18n "postInfo_notIncluded" }}{{ end }}
                         {{ range $idx, $category := .Params.categories }}

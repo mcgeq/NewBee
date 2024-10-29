@@ -13,7 +13,8 @@
                 {{ .Title }}
             </div>
             <div class="other-summary">{{ .Summary }}</div>
-            <div class="other-date">{{ .PublishDate.Format "2006-1-2"}}</div>
+            {{ $dateFormat := .Site.Params.publishDateFormat | default "2006-01-02 15:04:05" }}
+            <div class="other-date">{{ .PublishDate.Format $dateFormat }}</div>
         </div>
     </div>
 </a>
