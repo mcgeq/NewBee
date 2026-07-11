@@ -28,7 +28,7 @@ summaryLength = 50
 # 中日韩语言请改为 true
 hasCJKLanguage = true
 
-[author]
+[params.author]
     name = "xioyito"
     description = "Be Water, My Friend."
     # profile photo of author in author card
