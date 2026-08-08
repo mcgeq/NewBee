@@ -1,12 +1,16 @@
 {{ define "main" }}
-<section class="section">
-    <div class="container max-800px">
-        <h1 class="title is-3">
-            {{ .Title }}
-        </h1>
-        <div class="content">
-            {{ .Content }}
+{{ partial "widgets/hero.html" . }}
+<div class="zhuti-0">
+    <div class="container">
+        <div class="zhuti">
+            <div class="zhuti-l">
+                {{ partial "widgets/content-all.html" . }}
+            </div>
+            <div class="zhuti-r">
+                {{ partial "widgets/zhuti-r.html" . }}
+            </div>
         </div>
     </div>
-</section>
+</div>
+{{ partial "widgets/sponsor.html" . }}
 {{ end }}

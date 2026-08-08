@@ -5,7 +5,10 @@
     <title>{{ .Site.Title }}{{ if not .IsHome }}{{ with .Title }} | {{ . }}{{ end }}{{ end }}</title>
     <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Summary }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}{{ end }} ">
     <link rel="canonical" href="{{ .Permalink }}" />
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    {{ with .OutputFormats.Get "rss" }}
+        <link rel="alternate" type="{{ .MediaType.Type }}" title="{{ $.Site.Title }} (RSS)" href="{{ .RelPermalink }}">
+    {{ end }}
+    <link rel="icon" type="image/x-icon" href='{{ "images/favicon.ico" | relURL }}'>
     {{ template "_internal/opengraph.html" . }}
     {{ template "_internal/twitter_cards.html" . }}
 
@@ -19,7 +22,7 @@
     <link rel="stylesheet" href='{{ "css/terms.css" | relURL }}' />
     <link rel="stylesheet" href='{{ "css/taxonomy.css" | relURL }}' />
     <!-- 1 -->
-    <link rel="stylesheet" href='/css/font-awesome-4.7.0/css/font-awesome.min.css' />
+    <link rel="stylesheet" href='{{ "css/font-awesome-4.7.0/css/font-awesome.min.css" | relURL }}' />
     <link rel="stylesheet" href='{{ "css/home.css" | relURL }}' />
     <!-- 1 -->
     <link rel="stylesheet" href='{{ "css/syntax.css" | relURL }}' />
@@ -27,13 +30,29 @@
         <link rel="stylesheet" href='{{ "css/comment.css" | relURL }}' />
     {{ end }}
     <link rel="stylesheet" href='{{ "css/shortcode.css" | relURL }}' />
-    
-    {{ if eq .Site.Params.Site.Mode "dark" }}
+    <script>
+        (function () {
+            var mode = {{ .Site.Params.Site.Mode }};
+            var dark = (mode === 'dark');
+            if (mode === 'auto' && !dark) {
+                try {
+                    var stored = sessionStorage.getItem('mode');
+                    if (stored !== null) {
+                        dark = (stored === 'dark');
+                    } else {
+                        var hour = new Date().getHours();
+                        dark = (hour <= 6 || hour >= 18);
+                    }
+                } catch (e) {}
+            }
+            if (dark) {
+                document.write("<link rel='stylesheet' href='{{ "css/style-dark.css" | relURL }}' />");
+                document.write("<link rel='stylesheet' href='{{ "css/syntax-dark.css" | relURL }}' />");
+            }
+        })();
+    </script>
     <!-- 1 -->
-        <link rel="stylesheet" href='{{ "css/style-dark.css" | relURL }}' />
-    {{ end }}
-    <!-- 1 -->
-    <link rel="stylesheet" href='{{ "css/custom.css" | relURL }}' />
+    <link rel="stylesheet" href='{{ "css/custom.css?v=20260808" | relURL }}' />
     <style>
         {{ if eq .Kind "404" }}
             body::after { display: none; }
@@ -53,11 +72,11 @@
     {{ if .Params.mermaid }}
         <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     {{ end }}
-    <script src="/js/lazysizes.min.js" async=""></script>
-    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="/js/search.js"></script>
-    <script src="/js/md_nb.js"></script>
-    <script src="/js/yes.js"></script>
+        <script src='{{ "js/lazysizes.min.js?v=20260808" | relURL }}' async=""></script>
+    <script src='{{ "js/jquery-4.0.0.min.js?v=20260808" | relURL }}' defer></script>
+    <script src='{{ "js/search.js?v=20260808" | relURL }}' defer></script>
+    <script src='{{ "js/md_nb.js?v=20260808" | relURL }}' defer></script>
+    <script src='{{ "js/yes.js?v=20260808" | relURL }}' defer></script>
     {{ if and .Site.Params.footer.enable .Site.Params.footer.visitor }}
         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     {{ end }}

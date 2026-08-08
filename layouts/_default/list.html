@@ -1,14 +1,29 @@
 {{ define "main" }}
-<div class="container">
-    <div class="section">
-        <div class="content">
-            <h1>{{ .Title }}</h1>
-            {{ .Content }}
-            {{ range .Pages }}
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-            {{ end }}
-        </div>
-        <div>
+{{ partial "widgets/hero.html" . }}
+<div class="zhuti-0">
+    <div class="container">
+        <div class="zhuti">
+            <div class="zhuti-l">
+                <div class="year-body">
+                    <div class="long">
+                        <button class="tosides-1 text-wbd" type="button">
+                            <i class="fa fa-arrow-right"></i>
+                        </button>
+                        <button class="tosides-2 text-wbd" type="button">
+                            <i class="fa fa-arrow-left"></i>
+                        </button>
+                        <button class="toup text-wbd">
+                            <i class="fa fa-arrow-up"></i>
+                        </button>
+                    </div>
+                    <div>
+                        {{ partial "widgets/archives.html" . }}
+                    </div>
+                </div>
+            </div>
+            <div class="zhuti-r">
+                {{ partial "widgets/zhuti-r.html" . }}
+            </div>
         </div>
     </div>
 </div>

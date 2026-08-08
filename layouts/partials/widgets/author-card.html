@@ -4,7 +4,7 @@
     <div class="zuozhe">
         {{ with .Site.Params.author.image }}
             <div class="datou">
-                <img class="lazyload" src="/images/thumbnail.gif" data-src="{{ . }}" alt="">
+                <img class="lazyload" src="/images/thumbnail.gif" data-src="{{ . }}" alt="{{ $.Site.Params.author.name }}">
             </div>
         {{ end }}
         <div class="name-jianjie">
@@ -42,8 +42,8 @@
         </a>
     </div>
 
-    <a href="{{ .Site.Params.author.link }}">
-        <div class="follow">Follow Me</div>
+    <a href="{{ .Site.Params.author.link }}" target="_blank" rel="noopener noreferrer">
+        <div class="follow">{{ i18n "sidebar_followMe" }}</div>
     </a>
     <div class="link">
         {{ range .Site.Menus.social }}
